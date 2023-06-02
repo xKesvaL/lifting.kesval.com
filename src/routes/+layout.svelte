@@ -9,10 +9,6 @@
 	});
 </script>
 
-<svelte:head>
-	<meta name="viewport" content="viewport-fit=cover" />
-</svelte:head>
-
 <div class="md:flex">
 	<Navigation />
 

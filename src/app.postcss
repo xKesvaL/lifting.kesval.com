@@ -1,4 +1,27 @@
-/* Write your global styles here, in PostCSS syntax */
+@font-face {
+  font-family: 'benz';
+  src: url('/fonts/benz.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'gt';
+  src: url('/fonts/gt.woff2') format('woff2');
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    :is(h1, h2, h3, h4, h5, h6) {
+        @apply font-title;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+}

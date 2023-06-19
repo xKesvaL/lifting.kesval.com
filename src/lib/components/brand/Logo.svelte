@@ -11,7 +11,7 @@
 </script>
 
 <div
-	class="flex h-full w-auto items-center gap-2 sm:gap-4 {size} {origin}"
+	class="flex h-full w-auto items-center justify-center gap-2 sm:gap-4 {size} {origin}"
 	class:animated
 	class:repeat
 >

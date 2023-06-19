@@ -7,6 +7,7 @@
 	import { auth } from '$lib/firebase';
 	import Auth from '$lib/components/auth/Auth.svelte';
 	import FirstJoinFlow from '$lib/components/flow/FirstJoinFlow.svelte';
+	import Loading from '$lib/components/layout/Loading.svelte';
 
 	const user = userStore(auth);
 
@@ -32,7 +33,9 @@
 		</main>
 	{/if}
 {:else if $user === undefined}
-	<main class="grid h-[90vh] place-items-center">loading...</main>
+	<main class="grid h-[90vh] place-items-center">
+		<Loading />
+	</main>
 {:else}
 	<main class="grid h-[90vh] place-items-center">
 		<Auth />

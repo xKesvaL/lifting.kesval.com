@@ -1,7 +1,33 @@
 {
-  "nav": {
-    "home": "Accueil",
-    "workout": "Entraînement",
-    "profile": "Profil"
-  }
+	"nav": {
+		"home": "Accueil",
+		"workout": "Entraînement",
+		"profile": "Profil"
+	},
+	"firstJoinFlow": {
+		"identity": "Identité",
+		"callYou": "Comment devons-nous vous appeler ?",
+		"usernamePlaceholder": "Pseudonyme",
+		"plans": "Plans d'entraînement",
+		"wantTo": "Je veux faire du...",
+		"powerlifting": "Powerlifting",
+		"powerbuilding": "Powerbuilding (hybride)",
+		"bodybuilding": "Bodybuilding",
+		"frequency": "Fréquence",
+		"howManyDays": "Je veux m'entraîner...",
+		"aWeek": "...par semaine",
+		"experience": "Expérience",
+		"hasExperience": "À la salle, j'ai un niveau...",
+		"lifter": ""
+	},
+	"common": {
+		"next": "Suivant",
+		"previous": "Précédent",
+		"finish": "Terminer",
+		"day": "jour",
+		"days": "jours",
+		"@beginner": "Débutant",
+		"@intermediate": "Intermédiaire",
+		"@advanced": "Avancé"
+	}
 }

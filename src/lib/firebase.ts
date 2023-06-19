@@ -1,7 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-// TODO: Add SDKs for Firebase products that you want to use
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyBrLP9UODt2HHwBiaHHN5Rw4IZaqlecPDE',

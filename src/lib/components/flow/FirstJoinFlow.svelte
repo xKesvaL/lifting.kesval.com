@@ -1,19 +1,26 @@
 <script lang="ts">
 	import { createFlow } from '$lib/utils/stores';
 	import Image from '$lib/components/elements/Image.svelte';
-	import common from '$lib/data/common';
 	import ThemeSwitcher from '$lib/components/layout/ThemeSwitcher.svelte';
-	import type { Flow } from '$lib';
-	import { onMount } from 'svelte';
+	import type { Flow, WorkoutType } from '$lib';
+	import { getContext, onMount } from 'svelte';
+	import { _ } from 'svelte-i18n';
+	import Logo from '$lib/components/brand/Logo.svelte';
+	import { updateProfile } from 'firebase/auth';
+	import type { User } from 'firebase/auth';
+	import { setDoc, doc } from 'firebase/firestore';
+	import { firestore } from '$lib/firebase';
 
 	let store = createFlow('firstJoin');
 
 	let loading = false;
 	let stage = 0;
 	let lastAction: string;
-	let selected: 'powerlifting' | 'bodybuilding' | 'mixed';
+	let selected: WorkoutType;
 
-	function select(type: 'powerlifting' | 'bodybuilding' | 'mixed') {
+	const user = getContext('user') as User;
+
+	function select(type: WorkoutType) {
 		selected = type;
 	}
 
@@ -39,8 +46,23 @@
 
 		store.nextStage(stage, data);
 
-		if (stage === 2) {
-			console.log('done');
+		if (stage === 3) {
+			let data = store.getData();
+
+			let experienceMap = ['beginner', 'intermediate', 'advanced'];
+
+			setDoc(doc(firestore, 'users', $user.uid), {
+				experience: experienceMap[parseInt(data.experience) - 1],
+				workoutDays: data.workoutDays,
+				trainingType: data.trainingType
+			}).then(() => {
+				updateProfile($user, {
+					displayName: data.username
+				}).then(() => {
+					window.location.reload();
+					loading = false;
+				});
+			});
 		} else {
 			stage++;
 			checkType();
@@ -63,7 +85,7 @@
 
 <section class="px-4 py-4">
 	<div class="mb-8 flex items-center justify-between">
-		<h1 class="text-4xl font-bold sm:text-5xl">{common.appName}</h1>
+		<Logo animated={false} size="semi-large" origin="left" />
 		<div class="mb-2">
 			<ThemeSwitcher />
 		</div>
@@ -75,18 +97,18 @@
 		on:submit|preventDefault={nextStage}
 		on:reset|preventDefault={previousStage}
 	>
-		<h2 class="collapse-title text-2xl font-bold uppercase">Identity</h2>
+		<h2 class="collapse-title text-2xl font-bold uppercase">{$_('firstJoinFlow.identity')}</h2>
 		<div class="collapse-content grid">
 			<div>
 				<div class="form-control w-full">
 					<label for="username" class="label">
-						<span class="label-text"> How should we call you? </span>
+						<span class="label-text">{$_('firstJoinFlow.callYou')}</span>
 					</label>
 					<input
 						class="input-bordered input-primary input w-full"
 						type="text"
 						autocomplete="username"
-						placeholder="CoolUsername123"
+						placeholder={$_('firstJoinFlow.usernamePlaceholder')}
 						required
 						minlength="3"
 						maxlength="20"
@@ -97,14 +119,18 @@
 				</div>
 			</div>
 			<div class="join ml-auto mt-4 w-fit">
-				<button class="btn-disabled join-item btn flex-grow" type="reset">Previous</button>
-				<button class="btn-primary join-item btn flex-grow" type="submit">
-					{#if loading}
-						<span class="loading loading-spinner" />
-					{:else}
-						Next
-					{/if}
+				<button class="btn-disabled join-item btn flex-grow" type="reset">
+					{$_('common.previous')}
 				</button>
+				{#if loading}
+					<button class="btn-disabled btn-primary join-item btn flex-grow" type="button">
+						<span class="loading loading-spinner" />
+					</button>
+				{:else}
+					<button class="btn-primary join-item btn flex-grow" type="submit">
+						{$_('common.next')}
+					</button>
+				{/if}
 			</div>
 		</div>
 	</form>
@@ -115,10 +141,10 @@
 		on:submit|preventDefault={nextStage}
 		on:reset|preventDefault={previousStage}
 	>
-		<h2 class="collapse-title text-2xl font-bold uppercase">Workout Plans</h2>
+		<h2 class="collapse-title text-2xl font-bold uppercase">{$_('firstJoinFlow.plans')}</h2>
 		<div class="collapse-content grid">
 			<div>
-				<div class="mb-4 text-center text-xl">I want to do...</div>
+				<div class="mb-4 text-center text-xl">{$_('firstJoinFlow.wantTo')}</div>
 				<div class="flex flex-col gap-1 sm:flex-row">
 					<label
 						class="grid cursor-pointer place-items-center bg-base-300 px-4 py-6 {selected ===
@@ -129,7 +155,9 @@
 						on:keypress={() => select('powerlifting')}
 						tabindex="0"
 					>
-						<h3 class="text-xl font-bold">Powerlifting</h3>
+						<h3 class="text-xl font-bold">
+							{$_('firstJoinFlow.powerlifting')}
+						</h3>
 						<input
 							type="radio"
 							name="trainingType"
@@ -144,21 +172,23 @@
 					</label>
 					<label
 						class="grid cursor-pointer place-items-center bg-base-300 px-4 py-6 {selected ===
-						'mixed'
+						'powerbuilding'
 							? 'outline outline-4 outline-primary'
 							: ''}"
-						on:click={() => select('mixed')}
-						on:keypress={() => select('mixed')}
+						on:click={() => select('powerbuilding')}
+						on:keypress={() => select('powerbuilding')}
 						tabindex="0"
 					>
-						<h3 class="text-xl font-bold">A mix of both</h3>
+						<h3 class="text-xl font-bold">
+							{$_('firstJoinFlow.powerbuilding')}
+						</h3>
 						<input
 							type="radio"
 							name="trainingType"
-							value="mixed"
+							value="powerbuilding"
 							class="sr-only"
 							required
-							checked={selected === 'mixed'}
+							checked={selected === 'powerbuilding'}
 						/>
 						<div class="max-w-[8rem] dark:invert sm:max-w-[12rem]">
 							<Image src="/flows/first/mix.png" />
@@ -173,7 +203,9 @@
 						on:keypress={() => select('bodybuilding')}
 						tabindex="0"
 					>
-						<h3 class="text-xl font-bold">Bodybuilding</h3>
+						<h3 class="text-xl font-bold">
+							{$_('firstJoinFlow.bodybuilding')}
+						</h3>
 
 						<input
 							type="radio"
@@ -190,14 +222,18 @@
 				</div>
 			</div>
 			<div class="join ml-auto mt-4 w-fit">
-				<button class="btn-warning join-item btn flex-grow" type="reset">Previous</button>
-				<button class="btn-primary join-item btn flex-grow" type="submit"
-					>{#if loading}
+				<button class="btn-warning join-item btn flex-grow" type="reset">
+					{$_('common.previous')}
+				</button>
+				{#if loading}
+					<button class="btn-disabled btn-primary join-item btn flex-grow" type="button">
 						<span class="loading loading-spinner" />
-					{:else}
-						Next
-					{/if}</button
-				>
+					</button>
+				{:else}
+					<button class="btn-primary join-item btn flex-grow" type="submit">
+						{$_('common.next')}
+					</button>
+				{/if}
 			</div>
 		</div>
 	</form>
@@ -208,37 +244,96 @@
 		on:submit|preventDefault={nextStage}
 		on:reset|preventDefault={previousStage}
 	>
-		<h2 class="collapse-title text-2xl font-bold uppercase">Frequency</h2>
+		<h2 class="collapse-title text-2xl font-bold uppercase">
+			{$_('firstJoinFlow.experience')}
+		</h2>
 		<div class="collapse-content grid">
 			<div>
-				<div class="mb-4 text-center text-xl">I want to workout...</div>
+				<div class="mb-4 text-center text-xl">
+					{$_('firstJoinFlow.hasExperience')}
+				</div>
+				<input
+					type="range"
+					min="1"
+					max="3"
+					step="1"
+					value={$store.stages[2]?.data.experience || 2}
+					class="range range-primary mt-2"
+					name="experience"
+				/>
+				<div class="mb-2 flex w-full justify-between px-2 text-xs">
+					<span>{$_('common.@beginner')}</span>
+					<span>{$_('common.@intermediate')}</span>
+					<span>{$_('common.@advanced')}</span>
+				</div>
+				<div class="mb-4 text-center text-xl">
+					{$_('firstJoinFlow.lifter')}
+				</div>
+			</div>
+			<div class="join ml-auto mt-4 w-fit">
+				<button class="btn-warning join-item btn flex-grow" type="reset">
+					{$_('common.previous')}
+				</button>
+				{#if loading}
+					<button class="btn-disabled btn-primary join-item btn flex-grow" type="button">
+						<span class="loading loading-spinner" />
+					</button>
+				{:else}
+					<button class="btn-primary join-item btn flex-grow" type="submit">
+						{$_('common.next')}
+					</button>
+				{/if}
+			</div>
+		</div>
+	</form>
+	<form
+		class="{stage === 3
+			? 'collapse-open py-6'
+			: 'collapse-close py-2'} collapse !rounded-t-none border-base-300 bg-base-200 px-4"
+		on:submit|preventDefault={nextStage}
+		on:reset|preventDefault={previousStage}
+	>
+		<h2 class="collapse-title text-2xl font-bold uppercase">
+			{$_('firstJoinFlow.frequency')}
+		</h2>
+		<div class="collapse-content grid">
+			<div>
+				<div class="mb-4 text-center text-xl">
+					{$_('firstJoinFlow.howManyDays')}
+				</div>
 				<input
 					type="range"
 					min="2"
 					max="6"
 					step="1"
-					value={$store.stages[2]?.data.workoutDays || 4}
+					value={$store.stages[3]?.data.workoutDays || 3}
 					class="range range-primary mt-2"
 					name="workoutDays"
 				/>
 				<div class="mb-2 flex w-full justify-between px-2 text-xs">
-					<span>2 day</span>
-					<span>3 day</span>
-					<span>4 day</span>
-					<span>5 day</span>
-					<span>6 day</span>
+					<span>2 {$_('common.days')}</span>
+					<span>3 {$_('common.days')}</span>
+					<span>4 {$_('common.days')}</span>
+					<span>5 {$_('common.days')}</span>
+					<span>6 {$_('common.days')}</span>
 				</div>
-				<div class="mb-4 text-center text-xl">...a week</div>
+				<div class="mb-4 text-center text-xl">
+					{$_('firstJoinFlow.aWeek')}
+				</div>
 			</div>
 			<div class="join ml-auto mt-4 w-fit">
-				<button class="btn-warning join-item btn flex-grow" type="reset">Previous</button>
-				<button class="btn-primary join-item btn flex-grow" type="submit"
-					>{#if loading}
+				<button class="btn-warning join-item btn flex-grow" type="reset">
+					{$_('common.previous')}
+				</button>
+				{#if loading}
+					<button class="btn-disabled btn-primary join-item btn flex-grow" type="button">
 						<span class="loading loading-spinner" />
-					{:else}
-						Finish
-					{/if}</button
-				>
+					</button>
+				{:else}
+					<button class="btn-primary join-item btn flex-grow" type="submit">
+						{$_('common.finish')}
+					</button>
+				{/if}
 			</div>
 		</div>
 	</form>

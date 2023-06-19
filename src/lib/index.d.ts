@@ -7,3 +7,5 @@ interface FlowStage {
 	data: unknown;
 	stage: number;
 }
+
+export type WorkoutType = 'powerlifting' | 'powerbuilding' | 'bodybuilding';

@@ -43,9 +43,20 @@ export const createFlow = (name: string) => {
 		});
 	};
 
+	const getData = () => {
+		const data = localStorage.getItem(name) || '[]';
+		let returnData = {};
+		JSON.parse(data).forEach((d: any) => {
+			returnData = { ...returnData, ...d.data };
+		});
+
+		return returnData;
+	};
+
 	return {
 		subscribe,
 		previousStage,
-		nextStage
+		nextStage,
+		getData
 	};
 };

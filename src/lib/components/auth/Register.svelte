@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { IconAlertCircle } from '@tabler/icons-svelte';
+	import { IconAlertCircle, IconEye, IconEyeOff } from '@tabler/icons-svelte';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { auth } from '$lib/firebase';
 	import { fade } from 'svelte/transition';
 
 	let message = '';
 	let loading = false;
+	let passwordVisible = false;
 
 	function handleSubmit(e) {
 		loading = true;
@@ -55,12 +56,12 @@
 			placeholder="example@site.com"
 		/>
 	</div>
-	<div class="form-control">
+	<div class="form-control relative">
 		<label class="label" for="password">
 			<span class="label-text">Password</span>
 		</label>
 		<input
-			type="password"
+			type={passwordVisible ? 'text' : 'password'}
 			autocomplete="current-password"
 			required
 			id="password"
@@ -70,6 +71,22 @@
 			name="password"
 			placeholder="Your password"
 		/>
+		<button
+			class="absolute bottom-3 right-3"
+			type="button"
+			on:click={() => {
+				passwordVisible = !passwordVisible;
+			}}
+			on:keypress={() => {
+				passwordVisible = !passwordVisible;
+			}}
+		>
+			{#if passwordVisible}
+				<IconEyeOff />
+			{:else}
+				<IconEye />
+			{/if}
+		</button>
 	</div>
 	<button class="btn-primary btn mt-4 w-full">
 		{#if loading}

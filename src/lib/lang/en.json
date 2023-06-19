@@ -1,7 +1,33 @@
 {
-  "nav": {
-    "home": "Home",
-    "workout": "Workout",
-    "profile": "Profile"
-  }
+	"nav": {
+		"home": "Home",
+		"workout": "Workout",
+		"profile": "Profile"
+	},
+	"firstJoinFlow": {
+		"identity": "Identity",
+		"callYou": "What should we call you?",
+		"usernamePlaceholder": "username",
+		"plans": "Workout Plans",
+		"wantTo": "I want to do...",
+		"powerlifting": "Powerlifting",
+		"powerbuilding": "Powerbuilding (hybrid)",
+		"bodybuilding": "Bodybuilding",
+		"frequency": "Frequency",
+		"howManyDays": "I want to workout...",
+		"aWeek": "...a week",
+		"experience": "Experience",
+		"hasExperience": "In the gym, I am...",
+		"lifter": "...lifter"
+	},
+	"common": {
+		"next": "Next",
+		"previous": "Previous",
+		"finish": "Finish",
+		"day": "day",
+		"days": "days",
+		"@beginner": "A Beginner",
+		"@intermediate": "An Intermediate",
+		"@advanced": "An Advanced"
+	}
 }

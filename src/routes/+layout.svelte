@@ -3,15 +3,24 @@
 	import Navigation from '$lib/components/layout/Navigation.svelte';
 	import { onMount, setContext } from 'svelte';
 	import { themeChange } from 'theme-change';
-	import { userStore } from 'firebase-svelte';
-	import { auth } from '$lib/firebase';
+	import { userStore, fireDocStore } from 'firebase-svelte';
+	import { auth, firestore } from '$lib/firebase';
 	import Auth from '$lib/components/auth/Auth.svelte';
 	import FirstJoinFlow from '$lib/components/flow/FirstJoinFlow.svelte';
 	import Loading from '$lib/components/layout/Loading.svelte';
+	import { doc } from 'firebase/firestore';
 
 	const user = userStore(auth);
 
+	let userData;
+
+	$: if ($user) {
+		userData = fireDocStore(firestore, doc(firestore, 'users', $user.uid));
+		setContext('userData', userData);
+	}
+
 	setContext('user', user);
+	setContext('userData', userData);
 
 	onMount(async () => {
 		themeChange(false);
@@ -19,7 +28,7 @@
 </script>
 
 {#if $user}
-	{#if $user.displayName}
+	{#if $userData && $userData.experience}
 		<div class="md:flex">
 			<Navigation />
 
@@ -27,6 +36,10 @@
 				<slot />
 			</main>
 		</div>
+	{:else if $userData === undefined}
+		<main class="grid h-[90vh] place-items-center">
+			<Loading />
+		</main>
 	{:else}
 		<main class="grid h-[90vh] place-items-center">
 			<FirstJoinFlow />

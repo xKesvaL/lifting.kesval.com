@@ -28,6 +28,8 @@
 		"days": "days",
 		"@beginner": "A Beginner",
 		"@intermediate": "An Intermediate",
-		"@advanced": "An Advanced"
+		"@advanced": "An Advanced",
+		"edit": "Edit",
+		"profile": "Profile"
 	}
 }

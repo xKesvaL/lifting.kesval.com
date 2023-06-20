@@ -54,7 +54,10 @@
 			setDoc(doc(firestore, 'users', $user.uid), {
 				experience: experienceMap[parseInt(data.experience) - 1],
 				workoutDays: data.workoutDays,
-				trainingType: data.trainingType
+				trainingType: data.trainingType,
+				calorieGoal: 2400,
+				weight: 70,
+				height: 170
 			}).then(() => {
 				updateProfile($user, {
 					displayName: data.username

@@ -1,8 +1,5 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import Loading from '$lib/components/layout/Loading.svelte';
-
-	let user = getContext('user');
+	import ProfileHeader from '$lib/components/headers/ProfileHeader.svelte';
 </script>
 
-{$user.email}
+<ProfileHeader />

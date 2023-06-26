@@ -4,6 +4,6 @@
 </script>
 
 <HomeHeader />
-<section class="px-4 py-4">
+<section class="mx-auto max-w-[1024px] px-4 py-4">
 	<HomeFoodCard />
 </section>

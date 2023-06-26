@@ -30,6 +30,8 @@
 		"@intermediate": "Intermédiaire",
 		"@advanced": "Avancé",
 		"edit": "Modifier",
-		"profile": "Profil"
+		"profile": "Profil",
+		"food": "Nourriture",
+		"account": "Compte"
 	}
 }

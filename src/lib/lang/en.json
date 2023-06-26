@@ -30,6 +30,8 @@
 		"@intermediate": "An Intermediate",
 		"@advanced": "An Advanced",
 		"edit": "Edit",
-		"profile": "Profile"
+		"profile": "Profile",
+		"food": "Food",
+		"account": "Account"
 	}
 }

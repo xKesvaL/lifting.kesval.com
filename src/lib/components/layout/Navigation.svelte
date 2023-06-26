@@ -13,7 +13,10 @@
 	<div class="!hidden justify-center px-2 py-4 text-xl md:!flex">
 		<Logo animated={false} />
 	</div>
-	<NavigationLink href="/" active={$page.url.pathname === '/'}>
+	<NavigationLink
+		href="/"
+		active={$page.url.pathname === '/' || $page.url.pathname.startsWith('/food')}
+	>
 		<IconHome slot="icon" />
 		{$_('nav.home')}
 	</NavigationLink>
@@ -21,7 +24,10 @@
 		<IconBarbell slot="icon" />
 		{$_('nav.workout')}
 	</NavigationLink>
-	<NavigationLink href="/profile" active={$page.url.pathname.startsWith('/profile')}>
+	<NavigationLink
+		href="/profile"
+		active={$page.url.pathname.startsWith('/profile') || $page.url.pathname.startsWith('/settings')}
+	>
 		<IconUser slot="icon" />
 		{$_('nav.profile')}
 	</NavigationLink>

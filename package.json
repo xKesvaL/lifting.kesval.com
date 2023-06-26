@@ -38,10 +38,12 @@
 	"type": "module",
 	"dependencies": {
 		"@tabler/icons-svelte": "^2.21.0",
+		"@tanstack/svelte-query": "^4.29.17",
 		"firebase": "^9.22.2",
 		"firebase-svelte": "^0.1.5",
 		"prettier-plugin-tailwindcss": "^0.3.0",
 		"svelte-i18n": "^3.6.0",
-		"theme-change": "^2.5.0"
+		"theme-change": "^2.5.0",
+		"xss": "^1.0.14"
 	}
 }

@@ -9,6 +9,7 @@
 	import FirstJoinFlow from '$lib/components/flow/FirstJoinFlow.svelte';
 	import Loading from '$lib/components/layout/Loading.svelte';
 	import { doc } from 'firebase/firestore';
+	import { page } from '$app/stores';
 
 	const user = userStore(auth);
 
@@ -30,8 +31,7 @@
 {#if $user}
 	{#if $userData && $userData.experience}
 		<div class="md:flex">
-			<Navigation />
-
+			<Navigation mobile={!$page.url.pathname.startsWith('/food')} />
 			<main class="flex-grow">
 				<slot />
 			</main>

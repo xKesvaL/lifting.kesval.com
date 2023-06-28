@@ -6,9 +6,7 @@
 	const user = getContext('user');
 </script>
 
-<header
-	class="sticky left-0 right-0 top-0 mx-auto grid max-w-[1024px] grid-cols-3 items-center justify-between px-4 py-4"
->
+<header class="in-container in-header grid grid-cols-3 items-center justify-between">
 	<a
 		class="text-left text-sm text-primary md:text-base lg:text-lg"
 		href="/settings/profile?from=profile"

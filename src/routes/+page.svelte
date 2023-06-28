@@ -1,9 +1,9 @@
 <script>
-	import HomeHeader from '$lib/components/headers/HomeHeader.svelte';
-	import HomeFoodCard from '$lib/components/cards/HomeFoodCard.svelte';
+	import HomeHeader from '$lib/components/home/HomeHeader.svelte';
+	import HomeFoodCard from '$lib/components/home/HomeFoodCard.svelte';
 </script>
 
 <HomeHeader />
-<section class="mx-auto max-w-[1024px] px-4 py-4">
+<section class="in-container">
 	<HomeFoodCard />
 </section>

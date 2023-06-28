@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ProfileHeader from '$lib/components/headers/ProfileHeader.svelte';
+	import ProfileHeader from '$lib/components/profile/ProfileHeader.svelte';
 </script>
 
 <ProfileHeader />

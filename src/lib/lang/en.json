@@ -32,6 +32,12 @@
 		"edit": "Edit",
 		"profile": "Profile",
 		"food": "Food",
-		"account": "Account"
+		"account": "Account",
+		"search": "Search",
+		"noResults": "No results"
+	},
+	"settings": {
+		"account": "Account",
+		"preferences": "Preferences"
 	}
 }

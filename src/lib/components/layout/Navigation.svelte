@@ -5,10 +5,14 @@
 	import { _ } from 'svelte-i18n';
 
 	import Logo from '$lib/components/brand/Logo.svelte';
+
+	export let mobile: boolean;
 </script>
 
 <nav
-	class="bg-base-300 max-md:btm-nav md:menu md:menu-vertical max-md:w-screen md:sticky md:top-0 md:h-screen md:w-fit md:min-w-[12rem] md:gap-4 md:border-r-[1px] md:border-neutral/10 md:px-0"
+	class="{mobile
+		? ''
+		: '!hidden'} bg-base-300 max-md:btm-nav md:menu md:menu-vertical max-md:w-screen md:sticky md:top-0 md:!flex md:h-screen md:w-fit md:min-w-[16rem] md:gap-4 md:border-r-[1px] md:border-neutral/10 md:px-0"
 >
 	<div class="!hidden justify-center px-2 py-4 text-xl md:!flex">
 		<Logo animated={false} />

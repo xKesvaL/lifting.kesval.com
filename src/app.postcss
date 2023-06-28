@@ -44,6 +44,18 @@
     :is(h1, h2, h3, h4, h5, h6) {
         @apply font-title;
     }
+
+    .in-container {
+        @apply max-w-5xl mx-auto px-4 py-4;
+    }
+
+    .in-header {
+        @apply sticky top-0 left-0 right-0 z-50;
+    }
+
+    .in-footer {
+        @apply fixed left-0 bottom-0 right-0 z-50 md:left-64;
+    }
 }
 
 html {

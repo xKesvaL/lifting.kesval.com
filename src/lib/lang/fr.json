@@ -32,6 +32,12 @@
 		"edit": "Modifier",
 		"profile": "Profil",
 		"food": "Nourriture",
-		"account": "Compte"
+		"account": "Compte",
+		"search": "Rechercher",
+		"noResults": "Aucun résultat"
+	},
+	"settings": {
+		"account": "Compte",
+		"preferences": "Préférences"
 	}
 }

@@ -1,6 +1,6 @@
-import type { PageLoad } from './$types';
+import type { LayoutLoad } from './$types';
 
-const load: PageLoad = ({ url }) => {
+const load: LayoutLoad = ({ url }) => {
 	const from = url.searchParams.get('from') || 'settings';
 	return {
 		from

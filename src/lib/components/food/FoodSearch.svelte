@@ -59,6 +59,8 @@
 </div>
 {#if !$test || $test.status === 'loading'}
 	a
+{:else if !$test?.data || !$test?.data?.products}
+	{$_('common.noResults')}
 {:else}
 	<div class="pb-16 md:pb-0">
 		{#each $test?.data?.products as product}

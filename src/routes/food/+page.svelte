@@ -1,7 +1,11 @@
-<script lang="ts">
-	import FoodSearch from '$lib/components/food/FoodSearch.svelte';
+<script>
+	import FoodHeader from '$lib/components/food/FoodHeader.svelte';
+	import FoodFooter from '$lib/components/food/FoodFooter.svelte';
+	import FoodInfo from '$lib/components/food/FoodInfo.svelte';
 </script>
 
-<section class="mx-auto max-w-[1024px] px-4 py-4">
-	<FoodSearch />
+<FoodHeader />
+<section class="in-container !px-0">
+	<FoodInfo />
 </section>
+<FoodFooter />

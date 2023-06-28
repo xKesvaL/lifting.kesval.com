@@ -39,5 +39,17 @@
 	"settings": {
 		"account": "Compte",
 		"preferences": "Préférences"
+	},
+	"calendar": {
+		"calendar": "Calendrier d'entraînement",
+		"day": {
+			"0": "Lun",
+			"1": "Mar",
+			"2": "Mer",
+			"3": "Jeu",
+			"4": "Ven",
+			"5": "Sam",
+			"6": "Dim"
+		}
 	}
 }

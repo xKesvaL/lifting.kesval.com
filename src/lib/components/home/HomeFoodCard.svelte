@@ -7,7 +7,7 @@
 
 <a
 	href="/food"
-	class="btn-ghost btn flex h-auto w-full flex-nowrap justify-between bg-base-200 px-4 py-4 normal-case shadow-lg"
+	class="btn-ghost btn my-2 flex h-auto w-full flex-nowrap justify-between bg-base-200 px-4 py-4 normal-case shadow-lg"
 >
 	<div class="flex flex-col justify-start">
 		<h2 class="w-fit text-lg">{$_('common.food')}</h2>

@@ -22,7 +22,9 @@
 		{#each { length: daysInMonth } as test, ind}
 			<div class="aspect-square rounded-full bg-base-100">
 				{#if ind % 5 === 0}
-					<div class="m-1 grid aspect-square place-items-center rounded-full bg-primary pt-0.5">
+					<div
+						class="m-1 grid aspect-square place-items-center rounded-full bg-primary pt-0.5 text-primary-content"
+					>
 						<IconCheck size={20} />
 					</div>
 				{/if}

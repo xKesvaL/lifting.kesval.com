@@ -16,7 +16,7 @@
 	let userData;
 
 	$: if ($user) {
-		userData = fireDocStore(firestore, doc(firestore, 'users', $user.uid));
+		userData = fireDocStore(firestore, doc(firestore, 'users', $user.uid, 'common', 'data'));
 		setContext('userData', userData);
 	}
 

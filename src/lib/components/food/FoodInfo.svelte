@@ -6,63 +6,68 @@
 	import { firestore } from '$lib/firebase';
 	import { doc } from 'firebase/firestore';
 
-	let selected = 6; // 0-6
-	let day = new Date().getDate(); // 1-31
-	let month = new Date().getMonth(); // 0-11
-	let year = new Date().getFullYear();
-
 	const previousWeek = () => {
-		if (day - 7 < 1) {
-			if (month - 1 < 0) {
-				month = 11;
-				year -= 1;
-			} else {
-				month -= 1;
-			}
-			console.log(day);
-			console.log(month);
-			day = new Date(year, month + 1, 0).getDate() + (day - 7);
-		} else {
-			day -= 7;
-		}
+		day -= 7;
 	};
 
 	const nextWeek = () => {
-		if (day + 7 > 31) {
-			if (month + 1 > 11) {
-				year += 1;
-				month = 0;
-			} else {
-				month += 1;
-			}
-			day = day + 7 - new Date(year, month, 0).getDate();
-		} else {
-			day += 7;
-		}
+		day += 7;
 	};
 
+	const DEFAULT_DOC = {
+		calorieIntake: 0
+	};
+
+	let selected = 6; // 0-6
+	let day = new Date().getDate(); // 1-31
+
+	const currentDay = new Date().getDate();
+	const month = new Date().getMonth(); // 0-11
+	const year = new Date().getFullYear();
+	const user = getContext('user');
+	let userData = getContext('userData');
+
+	let lastDayDate;
 	let date;
 	$: date = new Date(year, month, day - (6 - selected));
+	$: lastDayDate = new Date(year, month, day);
 
 	$: console.log('day', day);
 	$: console.log('month', month);
 	$: console.log('year', year);
 	$: console.log('date', date);
 
-	let data;
 	let weekDocs = [];
 
-	// get docs for each week day (use selected or smth)
-
-	$: {
-		// data = fireDocStore(firestore, doc(firestore, 'users', 'test'));
-		// do query using day, month, year
-		// console.log($data);
+	$: for (let i = 0; i < 7; i++) {
+		weekDocs[i] = {
+			...fireDocStore(
+				firestore,
+				doc(
+					firestore,
+					'users',
+					$user.uid,
+					'food',
+					`${lastDayDate.getFullYear()}-${lastDayDate.getMonth() + 1}-${
+						lastDayDate.getDate() - 6 + i
+					}`
+				),
+				DEFAULT_DOC
+			),
+			date: new Date(
+				lastDayDate.getFullYear(),
+				lastDayDate.getMonth(),
+				lastDayDate.getDate() - 6 + i
+			)
+		};
+		console.log(weekDocs[i].date);
 	}
 
-	// btw why does day start at 1 but month at 0, k
-
-	let userData = getContext('userData');
+	let store;
+	$: {
+		store = weekDocs[0];
+		console.log($store);
+	}
 
 	console.log($userData.calorieGoal.toString());
 </script>
@@ -79,7 +84,7 @@
 		<div
 			class="border-1 absolute left-[-10px] right-[-10px] top-20 z-[-1] h-0 border border-dashed border-neutral sm:left-4 sm:right-4"
 		/>
-		{#each { length: 7 } as i, index}
+		{#each weekDocs as weekDoc, index}
 			<button
 				class="relative flex h-full w-full max-w-[3rem] flex-1 cursor-pointer flex-col items-center justify-end rounded-full pb-10 pt-4 transition-colors sm:pb-14 {index ===
 				selected
@@ -87,19 +92,27 @@
 					: ''}"
 				on:click={() => (selected = index)}
 			>
-				<div class="w-2/5 rounded-full bg-primary sm:w-2/5" style="height: {100 * (index / 6)}%" />
+				<div
+					class="w-2/5 rounded-full bg-primary transition-all sm:w-2/5"
+					style="height: {100 * (index / 6)}%"
+				/>
 				<span
-					class="absolute bottom-1 grid aspect-square w-5/6 place-items-center rounded-full transition-colors {index ===
+					class="absolute bottom-1 grid aspect-square w-5/6 place-items-center rounded-full text-sm transition-colors {index ===
 					selected
 						? 'bg-base-300'
 						: ''}"
 				>
-					{index}
+					{weekDoc.date.getDate()}
 				</span>
 			</button>
 		{/each}
 	</div>
-	<button class="btn-ghost btn-circle btn absolute right-0" on:click={nextWeek}>
+	<button
+		class="btn-ghost btn-circle btn absolute right-0 {day + 7 > currentDay
+			? 'btn-disabled max-md:!bg-transparent'
+			: ''}"
+		on:click={nextWeek}
+	>
 		<IconChevronRight />
 	</button>
 </div>

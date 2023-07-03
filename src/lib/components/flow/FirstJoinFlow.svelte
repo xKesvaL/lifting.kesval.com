@@ -51,7 +51,8 @@
 
 			let experienceMap = ['beginner', 'intermediate', 'advanced'];
 
-			setDoc(doc(firestore, 'users', $user.uid), {
+			// we're using a subcollection here so if we load the common data we don't have to load the whole user document
+			setDoc(doc(firestore, 'users', $user.uid, 'common', 'data'), {
 				experience: experienceMap[parseInt(data.experience) - 1],
 				workoutDays: data.workoutDays,
 				trainingType: data.trainingType,
@@ -126,7 +127,7 @@
 					{$_('common.previous')}
 				</button>
 				{#if loading}
-					<button class="btn-disabled btn-primary join-item btn flex-grow" type="button">
+					<button class="btn-primary btn-disabled join-item btn flex-grow" type="button">
 						<span class="loading loading-spinner" />
 					</button>
 				{:else}
@@ -229,7 +230,7 @@
 					{$_('common.previous')}
 				</button>
 				{#if loading}
-					<button class="btn-disabled btn-primary join-item btn flex-grow" type="button">
+					<button class="btn-primary btn-disabled join-item btn flex-grow" type="button">
 						<span class="loading loading-spinner" />
 					</button>
 				{:else}
@@ -278,7 +279,7 @@
 					{$_('common.previous')}
 				</button>
 				{#if loading}
-					<button class="btn-disabled btn-primary join-item btn flex-grow" type="button">
+					<button class="btn-primary btn-disabled join-item btn flex-grow" type="button">
 						<span class="loading loading-spinner" />
 					</button>
 				{:else}
@@ -329,7 +330,7 @@
 					{$_('common.previous')}
 				</button>
 				{#if loading}
-					<button class="btn-disabled btn-primary join-item btn flex-grow" type="button">
+					<button class="btn-primary btn-disabled join-item btn flex-grow" type="button">
 						<span class="loading loading-spinner" />
 					</button>
 				{:else}

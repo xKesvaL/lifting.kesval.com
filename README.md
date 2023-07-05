@@ -1,38 +1,15 @@
-# create-svelte
+# SupaPower
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## ***Project is on standby for now***
 
-## Creating a project
+Why ? Well, I don't think I have the right idea fur SupaPower right now. Some things are sure, great, and I won't ditch the project directly, but I think it needs improvements.
 
-If you're seeing this, you've probably already done this step. Congrats!
+I know no real code nor functionality has been written yet, but I think we need to have another ecosystem other than the one I had in mind.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+I think we have to add 2 main categories other than Body, powerlifting and powerbuilding. Things such as Athleticism and Calisthenics would be a great addition.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+Now I don't have any idea how to program for these 2 categories, so what should we do about that ? I Thought about an ecosystem where people could share their programs. Evidently, this requires way more work than what I was expecting at first, but I think it's the right choice.
 
-## Developing
+I'll be doing other projects in the meantime, but I'll be back to SupaPower, and I'll try to make it the best I can. I also think we need to redo the design of the FirstJoinFlow.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Be back soon !

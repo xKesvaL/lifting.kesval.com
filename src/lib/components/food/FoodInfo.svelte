@@ -84,6 +84,7 @@
 		<div
 			class="border-1 absolute left-[-10px] right-[-10px] top-20 z-[-1] h-0 border border-dashed border-neutral sm:left-4 sm:right-4"
 		/>
+		<!--		key the div and make a transition, rn it isn't clear that the button you clicked on did something -->
 		{#each weekDocs as weekDoc, index}
 			<button
 				class="relative flex h-full w-full max-w-[3rem] flex-1 cursor-pointer flex-col items-center justify-end rounded-full pb-10 pt-4 transition-colors sm:pb-14 {index ===
